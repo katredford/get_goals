@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from 'react'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-hot-toast'
 import { Input } from './Input'
+import {useTask} from './context/useTask'
 import 'bootstrap/dist/css/bootstrap.css';
 function AddTask() {
     const[ input, setInput] = useState<string>('')
-    const[ tasks, addTask] = useState<string[]>([])
-
+    // const[ tasks, addTask] = useState<string[]>([])
+    const {addTask} = useTask()
     //useRef is a react hook for creating mutable references to components or elements
     //HTMLInputElement is the type parameter, helps typescript understand the typ of element being referenced
     const inputRef = useRef<HTMLInputElement>(null)
@@ -26,12 +28,14 @@ function AddTask() {
         
         //check to make sure the input isn't empty and trim whitespace
         if(input.trim() !== ''){
-            //creates array with previous tasks and adds new task at the end from input
-            addTask([...tasks, input])
+            //uses imported task context
+            addTask(input)
 
             //clears out the input field
             setInput('')
-            console.log(input)
+            toast.success('Todo added successfully!')
+        }else{
+            toast.error('Todo field cannot be empty!')
         }
     }
 

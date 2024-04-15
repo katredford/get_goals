@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import './App.css'
 import AddTask from './components/AddTask'
-
+import TaskList from './components/TaskList'
 function App() {
  
 
@@ -10,6 +10,7 @@ function App() {
     <>
     <Toaster position="bottom-center" />
     <AddTask />
+    <TaskList />
     </>
   )
 }
